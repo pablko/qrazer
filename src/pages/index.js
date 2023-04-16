@@ -1,6 +1,5 @@
 import { useState } from "react";
-import QRCode from "qrcode.react";
-
+import { QRCodeSVG } from "qrcode.react";
 
 function App() {
   const [url, setUrl] = useState("");
@@ -11,11 +10,11 @@ function App() {
   };
 
   return (
-    <div class="container">
-      <h1 class="title">QR Code Generator</h1>
-      <div class="input-container">
+    <div className="container">
+      <h1 className="title">QR Code Generator</h1>
+      <div className="input-container">
         <input
-          class="input"
+          className="input"
           type="text"
           placeholder="Input text to QRazer"
           value={url}
@@ -27,14 +26,13 @@ function App() {
           }}
         />
         {qrCode && (
-          <div class="qr-code-container">
-            <QRCode value={qrCode} size={120} />
+          <div className="qr-code-container">
+            <QRCodeSVG value={qrCode} size={120} />
           </div>
         )}
       </div>
-      <button class="button" onClick={generateQRCode}>QRazer</button>
+      <button className="button" onClick={generateQRCode}>QRazer</button>
     </div>
-
   );
 }
 
