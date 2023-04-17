@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
+import { toPng } from "html-to-image";
 
 function App() {
   const [url, setUrl] = useState("");
@@ -8,6 +9,20 @@ function App() {
   const generateQRCode = () => {
     setQRCode(url);
   };
+
+  const downloadPNG = () => {
+    const node = document.querySelector('.qr-code-container svg');
+      toPng(node)
+        .then(function (dataUrl) {
+          const link = document.createElement('a');
+          link.download = `${url}-QRazer.png`;
+          link.href = dataUrl;
+          link.click();
+        })
+        .catch(function (error) {
+          console.error('oops, something went wrong!', error);
+        });
+  }
 
   return (
     <div className="container">
@@ -32,7 +47,10 @@ function App() {
         )}
       </div>
       <button className="button" onClick={generateQRCode}>QRazer</button>
-    </div>
+      {qrCode && (
+        <button className="button" onClick={downloadPNG}>Download PNG</button>
+      )}
+   </div>
   );
 }
 
